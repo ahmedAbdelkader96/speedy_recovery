@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:speedy_recovery_test/global/navigation_routes/app_routes.dart';
 
 class SplashPageController extends GetxController {
-  void handleNavigation() async {
+
+
+
+  Future<void> handleNavigation() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       Get.offAllNamed(AppRoutes.mainView, arguments: [user.uid]);
@@ -11,4 +14,8 @@ class SplashPageController extends GetxController {
       Get.toNamed(AppRoutes.signUpAndLogInPage);
     }
   }
+
+
+
+
 }

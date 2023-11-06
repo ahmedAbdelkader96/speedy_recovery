@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -23,7 +24,10 @@ class DynamicUserDetailsSharingPage extends StatelessWidget {
               :
           WillPopScope(
             onWillPop: ()async{
-              Get.offAllNamed(AppRoutes.mainView ,arguments: [dynamicUserDetailsSharingController.currentSpeedyUser]);
+
+              Get.offAllNamed(AppRoutes.mainView ,arguments: [dynamicUserDetailsSharingController.currentSpeedyUser!.id]);
+
+
               return false;
             },
             child: GetBuilder<DynamicUserDetailsSharingController>(builder: (dynamicUserDetailsSharingController) {
@@ -36,7 +40,7 @@ class DynamicUserDetailsSharingPage extends StatelessWidget {
                     height: MQuery.getheight(context, 45),
                   ),
                   CustomizedBackButton(onPressed: (){
-                    Get.offAllNamed(AppRoutes.mainView ,arguments: [dynamicUserDetailsSharingController.currentSpeedyUser]);
+                    Get.offAllNamed(AppRoutes.mainView ,arguments: [dynamicUserDetailsSharingController.currentSpeedyUser!.id]);
 
                   },),
                   Expanded(

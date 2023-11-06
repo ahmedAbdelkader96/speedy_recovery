@@ -60,7 +60,7 @@ class EditProfileController extends GetxController {
        await FirebaseFirestore.instance.collection("users").doc(speedyUser!.id).update(SpeedyUser(id: speedyUser!.id, name: nameController.text.trim(), email: emailController.text.trim(), dynamicLink: link).toJson());
         isConfirmingLoading = false;
         update();
-        Get.offAllNamed(AppRoutes.mainView ,arguments: [speedyUser!.id]);
+        Get.offAllNamed(AppRoutes.mainView ,arguments: [speedyUser!.id.toString()]);
 
 
 

@@ -117,7 +117,7 @@ class EditProfilePage extends StatelessWidget {
                             width: MQuery.getWidth(context, 328),
                             color:  const Color(0xFF017AFE),
                             child: editProfileController.isConfirmingLoading? const CircularProgressIndicator(color: Colors.white,) :  const Text(
-                              "Update name",
+                              "Update profile",
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,

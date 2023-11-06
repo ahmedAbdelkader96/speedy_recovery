@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -18,22 +19,25 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    init();
+    init ();
+
   }
 
 
   Future<void> init ()async{
     final splashPageController = SplashPageController();
+
     try {
-      final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
-      if (data != null){
-        DynamicLinksApi().handleDynamicLinkFromTerminated(context: context, data: data);
-      }else{
-        splashPageController.handleNavigation();
-      }
-    } catch (e) {
-      // TODO
-      splashPageController.handleNavigation();
+      User? user = FirebaseAuth.instance.currentUser;
+        final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
+        if (data != null){
+          await DynamicLinksApi().handleDynamicLinkFromTerminated(context: context, data: data);
+        }else{
+          await splashPageController.handleNavigation();
+        }
+    }  catch (e) {
+      await splashPageController.handleNavigation();
+
     }
 
   }

@@ -17,6 +17,7 @@ class MainViewController extends GetxController {
     super.onInit();
     dynamic argumentData = Get.arguments;
     currentUserId = argumentData[0];
+    print("currentUserId is : $currentUserId");
     DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance.collection("users").doc(currentUserId).get();
     speedyUser =  SpeedyUser.fromDocumentSnapshot(doc);
     update();
