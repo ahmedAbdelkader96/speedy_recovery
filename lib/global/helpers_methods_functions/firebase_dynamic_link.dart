@@ -86,83 +86,80 @@ class DynamicLinksApi {
 
 
 
-  // Future<void> handleDynamicLink({ required BuildContext context,required PendingDynamicLinkData? data}) async {
-  //
-  //
-  //   if (data != null){
-  //     debugPrint("Opened from getInitialLink");
-  //     handleSuccessLinking(data, context);
-  //   }
-  //
-  //
-  //   dynamicLinks.onLink(
-  //       onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-  //         //final Uri? deepLink = dynamicLink?.link;
-  //
-  //         if (dynamicLink != null) {
-  //           debugPrint("Opened from onLink stream");
-  //           handleSuccessLinking(dynamicLink, context);
-  //         }
-  //       },
-  //       onError: (OnLinkErrorException e) async {
-  //         debugPrint('onLinkError');
-  //         debugPrint(e.message);
-  //       }
-  //   );
-  //
-  // }
-  // Future<void> handleDynamicLinkStream(BuildContext context) async {
-  //
-  //   dynamicLinks.onLink(
-  //       onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-  //         //final Uri? deepLink = dynamicLink?.link;
-  //
-  //         if (dynamicLink != null) {
-  //            handleSuccessLinking(dynamicLink, context);
-  //         }
-  //       },
-  //       onError: (OnLinkErrorException e) async {
-  //         debugPrint('onLinkError');
-  //         debugPrint(e.message);
-  //       }
-  //   );
-  // }
-  // Future<void> handleSuccessLinking(PendingDynamicLinkData pendingDynamicLinkData,BuildContext context)  async {
-  //   final Uri deepLink = pendingDynamicLinkData.link;
-  //   bool isUsers = deepLink.pathSegments.contains('users');
-  //   if (isUsers) {
-  //
-  //     String userId = deepLink.queryParameters["userId"]!;
-  //
-  //
-  //
-  //
-  //     User? user = FirebaseAuth.instance.currentUser;
-  //
-  //
-  //
-  //     if(user != null){
-  //       DocumentSnapshot<Map<String, dynamic>> doc1 = await FirebaseFirestore.instance.collection("users").doc(user.uid).get();
-  //       SpeedyUser currentSpeedyUser =  SpeedyUser.fromDocumentSnapshot(doc1);
-  //
-  //
-  //       DocumentSnapshot<Map<String, dynamic>> doc2 = await FirebaseFirestore.instance.collection("users").doc(userId).get();
-  //       SpeedyUser dynamicSpeedyUser =  SpeedyUser.fromDocumentSnapshot(doc2);
-  //       debugPrint("Contain cards ");
-  //
-  //       Get.toNamed(AppRoutes.dynamicUserDetailsSharingPage ,arguments: [dynamicSpeedyUser,currentSpeedyUser]);
-  //     }else{
-  //       Get.offAllNamed(AppRoutes.signUpAndLogInPage );
-  //
-  //     }
-  //
-  //
-  //
-  //
-  //
-  //
-  //   }
-  // }
+  Future<void> handleDynamicLink({ required BuildContext context,required PendingDynamicLinkData? data}) async {
+
+
+    if (data != null){
+      debugPrint("Opened from getInitialLink");
+      handleSuccessLinking(data, context);
+    }
+
+
+    dynamicLinks.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+          //final Uri? deepLink = dynamicLink?.link;
+
+          if (dynamicLink != null) {
+            debugPrint("Opened from onLink stream");
+            handleSuccessLinking(dynamicLink, context);
+          }
+        },
+        onError: (OnLinkErrorException e) async {
+          debugPrint('onLinkError');
+          debugPrint(e.message);
+        }
+    );
+
+  }
+  Future<void> handleDynamicLinkStream(BuildContext context) async {
+
+    dynamicLinks.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+          //final Uri? deepLink = dynamicLink?.link;
+
+          if (dynamicLink != null) {
+             handleSuccessLinking(dynamicLink, context);
+          }
+        },
+        onError: (OnLinkErrorException e) async {
+          debugPrint('onLinkError');
+          debugPrint(e.message);
+        }
+    );
+  }
+  Future<void> handleSuccessLinking(PendingDynamicLinkData pendingDynamicLinkData,BuildContext context)  async {
+    final Uri deepLink = pendingDynamicLinkData.link;
+    bool isUsers = deepLink.pathSegments.contains('users');
+    if (isUsers) {
+
+      String userId = deepLink.queryParameters["userId"]!;
+
+
+
+
+      User? user = FirebaseAuth.instance.currentUser;
+
+
+
+      if(user != null){
+        DocumentSnapshot<Map<String, dynamic>> doc1 = await FirebaseFirestore.instance.collection("users").doc(user.uid).get();
+        SpeedyUser currentSpeedyUser =  SpeedyUser.fromDocumentSnapshot(doc1);
+
+
+        DocumentSnapshot<Map<String, dynamic>> doc2 = await FirebaseFirestore.instance.collection("users").doc(userId).get();
+        SpeedyUser dynamicSpeedyUser =  SpeedyUser.fromDocumentSnapshot(doc2);
+        debugPrint("Contain cards ");
+
+        Get.toNamed(AppRoutes.dynamicUserDetailsSharingPage ,arguments: [dynamicSpeedyUser,currentSpeedyUser]);
+      }
+
+
+
+
+
+
+    }
+  }
 
 
 

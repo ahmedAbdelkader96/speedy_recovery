@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:speedy_recovery_test/features/main_view/main_view_controller.dart';
+import 'package:speedy_recovery_test/global/helpers_methods_functions/firebase_dynamic_link.dart';
 import 'package:speedy_recovery_test/global/helpers_methods_functions/media_query.dart';
 import 'package:speedy_recovery_test/global/navigation_routes/app_routes.dart';
 
 import '../../global/widgets/normal_raw_material_button.dart';
 
-class MainViewPage extends StatelessWidget {
+class MainViewPage extends StatefulWidget {
   const MainViewPage({Key? key}) : super(key: key);
 
+  @override
+  State<MainViewPage> createState() => _MainViewPageState();
+}
+
+class _MainViewPageState extends State<MainViewPage> {
 
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DynamicLinksApi().handleDynamicLinkStream(context);
+
+  }
 
   @override
   Widget build(BuildContext context) {
