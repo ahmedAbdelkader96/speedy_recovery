@@ -170,7 +170,7 @@ class DynamicLinksApi {
       socialMetaTagParameters: SocialMetaTagParameters(
         title: '$name link',
         description: 'It is $name link',
-        //imageUrl: Uri.parse(imageUrl),
+        imageUrl: Uri.parse("https://firebasestorage.googleapis.com/v0/b/speedyrecovery-54d1b.appspot.com/o/photo_2023-11-06%2010.04.02.jpeg?alt=media&token=a9ec72b9-c37e-4dac-9e88-3dfed3500ad7&_gl=1*pe6jao*_ga*MTcyMTgwNDE3OC4xNjgwNDQ3MTU4*_ga_CW55HF8NVT*MTY5OTI1NTgwNi40MTguMS4xNjk5MjU4MTg4LjQ1LjAuMA.."),
       ),
     );
 

@@ -35,7 +35,7 @@ class MainViewPage extends StatelessWidget {
                 color: Colors.white,
               )
                   : const Text(
-                "Sign Up",
+                "Log out",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,

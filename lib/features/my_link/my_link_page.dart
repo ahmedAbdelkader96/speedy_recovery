@@ -77,7 +77,7 @@ class MyLinkPage extends StatelessWidget {
                     NormalRawMaterialButton(
                         onPressed: () async {
 
-                           await Share.shareWithResult(myLinkController.speedyUser!.dynamicLink, subject: myLinkController.speedyUser!.name);
+                           await Share.shareWithResult(myLinkController.speedyUser!.dynamicLink);
 
                         },
                         height: MQuery.getWidth(context, 56),
