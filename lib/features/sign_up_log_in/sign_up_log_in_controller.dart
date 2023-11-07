@@ -99,10 +99,15 @@ class SignUpAndLogInController extends GetxController {
             .signInWithEmailAndPassword(
                 email: emailController.text.trim(),
                 password: passwordController.text.trim());
+
+
+        await FirebaseFirestore.instance.collection("users").doc(userCredential.user!.uid).
+        update({"email": emailController.text.trim()});
+
+
         isLogInLoading = false;
 
-        // DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance.collection("users").doc(userCredential.user!.uid).get();
-        // SpeedyUser speedyUser =  SpeedyUser.fromDocumentSnapshot(doc);
+
 
 
 

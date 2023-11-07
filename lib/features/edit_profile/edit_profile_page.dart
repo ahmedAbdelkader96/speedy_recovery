@@ -36,7 +36,7 @@ class EditProfilePage extends StatelessWidget {
                       children: [
 
                         SizedBox(
-                          height: MQuery.getheight(context, 45),
+                          height: MQuery.getheight(context, 25),
                         ),
                         const Center(
                           child: Text(
@@ -46,17 +46,9 @@ class EditProfilePage extends StatelessWidget {
                             ),),
                         ),
 
+
                         SizedBox(
-                          height: MQuery.getheight(context, 8),
-                        ),
-                        const Text(
-                          "(Before submit your updates , you should verify your email firstly)",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400,color: Colors.grey),
-                        ),
-                        SizedBox(
-                          height: MQuery.getheight(context, 66),
+                          height: MQuery.getheight(context, 36),
                         ),
 
                         GeneralTextFieldWithFloatingLabel(
@@ -73,9 +65,79 @@ class EditProfilePage extends StatelessWidget {
                           },
 
                         ),
+
+
+
                         SizedBox(
-                          height: MQuery.getheight(context, 16),
+                          height: MQuery.getheight(context, 24),
                         ),
+                        NormalRawMaterialButton(
+                            onPressed: () {
+
+                              if(editProfileController.isConfirmingLoading){
+
+                              }else{
+                                editProfileController.confirmNewData();
+
+                              }
+
+                            },
+                            height: MQuery.getWidth(context, 56),
+                            width: MQuery.getWidth(context, 328),
+                            color:  const Color(0xFF017AFE),
+                            child: editProfileController.isConfirmingLoading? const CircularProgressIndicator(color: Colors.white,) :  const Text(
+                              "Update name",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            )),
+                        SizedBox(
+                          height: MQuery.getheight(context, 8),
+                        ),
+
+                        if(editProfileController.errorConfirming.isNotEmpty) Text(
+                          editProfileController.errorConfirming,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
+                        ),
+
+                        SizedBox(
+                          height: MQuery.getheight(context, 28),
+                        ),
+                        Divider(indent: MQuery.getWidth(context, 16),endIndent: MQuery.getWidth(context, 16),color: Colors.grey,),
+
+
+
+
+
+
+                        SizedBox(
+                          height: MQuery.getheight(context, 36),
+                        ),
+                        const Center(
+                          child: Text(
+                            "Verify a new email",
+                            style: TextStyle(
+                                fontSize: 18,fontWeight: FontWeight.w500
+                            ),),
+                        ),
+                        // SizedBox(
+                        //   height: MQuery.getheight(context, 8),
+                        // ),
+                        // const Text(
+                        //   "(Before submit your updates , you should verify your email firstly)",
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //       fontSize: 14, fontWeight: FontWeight.w400,color: Colors.grey),
+                        // ),
+
+
+                        SizedBox(
+                          height: MQuery.getheight(context, 36),
+                        ),
+
                         GeneralTextFieldWithFloatingLabel(
                           controller: editProfileController.emailController,
                           labelText: "Email",
@@ -99,34 +161,13 @@ class EditProfilePage extends StatelessWidget {
 
                         ),
 
-                        SizedBox(
-                          height: MQuery.getheight(context, 56),
-                        ),
-                        NormalRawMaterialButton(
-                            onPressed: () {
 
-                              if(editProfileController.isConfirmingLoading){
 
-                              }else{
-                                editProfileController.confirmNewData();
 
-                              }
-
-                            },
-                            height: MQuery.getWidth(context, 56),
-                            width: MQuery.getWidth(context, 328),
-                            color:  const Color(0xFF017AFE),
-                            child: editProfileController.isConfirmingLoading? const CircularProgressIndicator(color: Colors.white,) :  const Text(
-                              "Update profile",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            )),
 
 
                         SizedBox(
-                          height: MQuery.getheight(context, 16),
+                          height: MQuery.getheight(context, 24),
                         ),
 
                         NormalRawMaterialButton(
@@ -135,7 +176,7 @@ class EditProfilePage extends StatelessWidget {
                               if(editProfileController.isSendingLoading){
 
                               }else{
-                                editProfileController.verifyYourEmail();
+                                editProfileController.verifyNewEmail();
 
                               }
 
@@ -146,7 +187,7 @@ class EditProfilePage extends StatelessWidget {
                             width: MQuery.getWidth(context, 328),
                             color:  const Color(0xFFEEEEEE),
                             child: editProfileController.isSendingLoading? const CircularProgressIndicator(color: Colors.white,) : const Text(
-                              "Verify Email",
+                              "Verify New Email",
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
@@ -156,17 +197,14 @@ class EditProfilePage extends StatelessWidget {
                         SizedBox(
                           height: MQuery.getheight(context, 16),
                         ),
-                        if(editProfileController.error.isNotEmpty) Text(
-                          editProfileController.error,
+                        if(editProfileController.errorVerifingNewEmail.isNotEmpty) Text(
+                          editProfileController.errorVerifingNewEmail,
                           textAlign: TextAlign.center,
 
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500,color: Colors.red),
                         ),
 
-                        SizedBox(
-                          height: MQuery.getheight(context, 16),
-                        ),
 
                         if(editProfileController.message.isNotEmpty) Text(
                           editProfileController.message,
@@ -174,7 +212,6 @@ class EditProfilePage extends StatelessWidget {
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
                         ),
-
 
 
 

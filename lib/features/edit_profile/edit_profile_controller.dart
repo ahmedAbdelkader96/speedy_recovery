@@ -19,7 +19,9 @@ class EditProfileController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  String error = "";
+  String errorConfirming = "";
+  String errorVerifingNewEmail = "";
+
   String message = "";
 
   @override
@@ -49,48 +51,63 @@ class EditProfileController extends GetxController {
 
       if (isValid) {
         message = "";
-        error = "";
+
+        errorVerifingNewEmail = "";
+        errorConfirming = "";
+
+        errorConfirming = "";
         isConfirmingLoading = true;
         update();
         User? user = FirebaseAuth.instance.currentUser;
 
-        await user?.updateEmail(emailController.text.trim());
-        await user?.updateDisplayName(nameController.text.trim());
-        String link = await DynamicLinksApi().createReferralLink(speedyUser!.id, nameController.text.trim() , true);
-       await FirebaseFirestore.instance.collection("users").doc(speedyUser!.id).update(SpeedyUser(id: speedyUser!.id, name: nameController.text.trim(), email: emailController.text.trim(), dynamicLink: link).toJson());
-        isConfirmingLoading = false;
-        update();
-        Get.offAllNamed(AppRoutes.mainView ,arguments: [speedyUser!.id.toString()]);
+          await user!.updateDisplayName(nameController.text.trim());
+          String link = await DynamicLinksApi().createReferralLink(speedyUser!.id, nameController.text.trim() , true);
+          await FirebaseFirestore.instance.collection("users").doc(speedyUser!.id).update(SpeedyUser(id: speedyUser!.id, name: nameController.text.trim(), email: speedyUser!.email, dynamicLink: link).toJson());
+          isConfirmingLoading = false;
+          update();
+          Get.offAllNamed(AppRoutes.mainView ,arguments: [speedyUser!.id.toString()]);
+
+
+
 
 
 
       }
     }on FirebaseAuthException catch (e) {
+      print(e.toString());
 
       if(e.toString().contains("Please verify")){
-        error = "Please verify your email , firstly";
+        errorConfirming = "Please verify your email , firstly";
       }else{
-        error = e.toString();
+        errorConfirming = e.toString();
       }
 
       isConfirmingLoading = false;
       update();
     }  catch (e) {
-      error = e.toString();
+      print(e.toString());
+
+      errorConfirming = e.toString();
       isConfirmingLoading = false;
       update();
     }
   }
 
-  void verifyYourEmail() async {
+  void verifyNewEmail() async {
     try {
-        error = "";
+      errorVerifingNewEmail = "";
+      errorConfirming = "";
         message = "";
         isSendingLoading = true;
         update();
-        User? user = FirebaseAuth.instance.currentUser;
 
-      user!.sendEmailVerification();
+        User? user = FirebaseAuth.instance.currentUser;
+        await user!.verifyBeforeUpdateEmail(emailController.text.trim())
+        //     .then((value) async {
+        //   await FirebaseFirestore.instance.collection("users").doc(user.uid).
+        //   update({"email": emailController.text.trim()});
+        // })
+      ;
         isSendingLoading = false;
         message = "Email address verification email has been sent just now , please check your inbox (also Spam or Junk)";
         update();
@@ -98,13 +115,13 @@ class EditProfileController extends GetxController {
 
     }on FirebaseAuthException catch (e) {
 
-      error = e.toString();
+      errorVerifingNewEmail = e.toString();
 
 
       isSendingLoading = false;
       update();
     }  catch (e) {
-      error = e.toString();
+      errorVerifingNewEmail = e.toString();
       isSendingLoading = false;
       update();
     }
